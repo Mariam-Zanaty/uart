@@ -3,16 +3,16 @@ module uart_rx_tb();
 
 
 reg clk; 
-reg rx_pin;
+reg UARTn_RXD;
 
-wire[7:0] RBR;
+wire UARTn_RTS;
 
 parameter period= 6,
          // delay = 104166;
           delay= 30;
 
 //DUT_instantiation
-uart_rx u1 ( .clk(clk) , .rx_pin(rx_pin), .RBR(RBR) );
+uart_rx u1 ( .clk(clk) , .UARTn_RXD(UARTn_RXD), .UARTn_RTS(UARTn_RTS) );
 
 
 //clk_gen
@@ -26,18 +26,18 @@ end
 //stimilus_gen
 initial
 begin
-#(delay) rx_pin =1;
-#(delay) rx_pin =1;
-#(delay) rx_pin =0;
-#(delay) rx_pin =0;
-#(delay) rx_pin =1;
-#(delay) rx_pin =0;
-#(delay) rx_pin =1;
-#(delay) rx_pin =1;
-#(delay) rx_pin =0;
-#(delay) rx_pin =0;
-#(delay) rx_pin =1;
-#(delay) rx_pin =1;
+#(delay) UARTn_RXD =1;
+#(delay) UARTn_RXD =1;
+#(delay) UARTn_RXD =0;
+#(delay) UARTn_RXD =0;
+#(delay) UARTn_RXD =1;
+#(delay) UARTn_RXD =0;
+#(delay) UARTn_RXD =1;
+#(delay) UARTn_RXD =1;
+#(delay) UARTn_RXD =0;
+#(delay) UARTn_RXD =0;
+#(delay) UARTn_RXD =1;
+#(delay) UARTn_RXD =1;
 
 end
 
@@ -47,9 +47,10 @@ initial
 
 begin
 $time_format(-9,3,"ns");
-$display("        ", "     Time clk rx_pin RBR");
-$monitor("%t %b %b %b " , $realtime, clk, rx_pin, RBR);
+$display("        ", "     Time clk UARTn_RXD UARTn_RTS");
+$monitor("%t %b %b %b " , $realtime, clk, UARTn_RXD, UARTn_RTS);
 end
 
 endmodule
+
 

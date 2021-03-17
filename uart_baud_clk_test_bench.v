@@ -1,10 +1,11 @@
-
+`timescale 1ns/1ns
 module uart_baud_clk_tb();
+
 
 reg clk; 
 wire[3:0] tick;
 
-parameter period= 6.6;
+parameter period= 6.66;
 
 
 //DUT_instantiation
@@ -18,33 +19,15 @@ begin
 #(period/2) clk = 0;
 end
 
-/*
-//stimilus_gen
-initial
-begin
-#(`delay) rst =0;
 
-#(`delay) rst =1;
-#(`delay) sequence=1;
-#(`delay) sequence=0;
-#(`delay) sequence=1;
-#(`delay) sequence=1;
-#(`delay) sequence=0;
-
-#(`delay) sequence=0;
-#(`delay) sequence=1;
-#(`delay) sequence=1;
-
-end
-*/
 
 
 initial
-begin
 
+begin
 $time_format(-9,3,"ns");
 $display("        ", "     Time clk tick");
 $monitor("%t %t %b " , $realtime, clk, tick);
-
 end
+
 endmodule

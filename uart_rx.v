@@ -1,9 +1,11 @@
-module uart_rx(clk, rx_pin, RBR);
-
+module uart_rx(clk, UARTn_RXD, UARTn_RTS);
+//rx_pin
 //io declaration
 input clk;             //assumed to be 5M HZ
-input rx_pin;          //for recieving serial data 
-output reg [7:0] RBR;  //Reciever_Buffer_Register
+input UARTn_RXD;          //for recieving serial data 
+output UARTn_RTS;   //Request to send handshaking signal control if 1 the transmitter transmit , else the transmitter don't transmit anything
+
+reg [7:0] RBR;  //Reciever_Buffer_Register
  
 //signals declaration
 wire[3:0] tick;             //16x_baud_rate_genarator
@@ -14,7 +16,7 @@ reg flag;
 reg data_in_recieved;  //first reg for eleminating metastability
 reg data_in;           //second reg for eleminating metastability
 
-integer recieved_bit_index;
+reg[2:0] recieved_bit_index;
 reg [2:0] next_state=3'b0;
 
 parameter  IDLE=      3'b000,
@@ -26,7 +28,7 @@ parameter  IDLE=      3'b000,
 //for eleminating metastability problems 
 always @(posedge clk)
 begin
-data_in_recieved <=rx_pin;
+data_in_recieved <= UARTn_RXD;
 data_in <=data_in_recieved;
 end
 
